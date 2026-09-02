@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蘇奕庭 | AI 應用、社群行銷與專案管理 - Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Serif TC & Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    },
+                    colors: {
+                        gallery: {
+                            bg: '#F5F4F0',      // 溫潤米白背景
+                            ink: '#2A2927',     // 深墨色文字
+                            gray: '#7A7A7A',    // 輔助灰色
+                            border: '#E3E0D8',  // 細緻邊線色
+                            accent: '#8C7A6B'   // 典雅大地色點綴
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F5F4F0;
+            color: #2A2927;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        /* 展覽式進場動畫 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* 細緻底線 Hover 動畫 */
+        .hover-line {
+            position: relative;
+        }
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .hover-line:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        /* 彈出視窗 (Modal) 樣式 */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        /* 隱藏滾動條但保持滾動 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Toast Notice */
+        #toast {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* 列印與 PDF 匯出優化樣式 */
+        @media print {
+            nav, #mobile-drawer, #toast, #portfolio-filters, .modal-overlay, button, .no-print {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                background-image: none !important;
+                color: #000000 !important;
+            }
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            section {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+                page-break-inside: avoid;
+            }
+            .portfolio-item {
+                break-inside: avoid;
+                border: 1px solid #ccc !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gallery-ink selection:text-gallery-bg font-sans">
+
+    <!-- 導覽列 (美術館極簡風) -->
+    <nav class="fixed w-full z-50 transition-all duration-500 bg-gallery-bg/90 backdrop-blur-md border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex justify-between items-center">
+            <a href="#" class="text-xl font-serif font-bold tracking-widest text-gallery-ink flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-gallery-accent inline-block"></span>
+                YITING SU.
+            </a>
+            <div class="hidden md:flex space-x-10 text-xs tracking-[0.2em] font-medium text-gallery-gray">
+                <a href="#about" class="hover:text-gallery-ink hover-line transition-colors">ABOUT</a>
+                <a href="#skills" class="hover:text-gallery-ink hover-line transition-colors">SKILLS</a>
+                <a href="#portfolio" class="hover:text-gallery-ink hover-line transition-colors">EXHIBITION</a>
+                <a href="#strengths" class="hover:text-gallery-ink hover-line transition-colors">ADVANTAGES</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="1.pdf" target="_blank" download="1.pdf" onclick="handlePdfClick(event)" class="inline-flex items-center gap-2 px-4 py-2 text-xs tracking-widest uppercase border border-gallery-accent text-gallery-accent hover:bg-gallery-accent hover:text-white transition-all duration-300 rounded-sm" title="下載 / 檢視 PDF 履歷表">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>PDF 履歷</span>
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center px-5 py-2 text-xs tracking-widest uppercase border border-gallery-ink text-gallery-ink hover:bg-gallery-ink hover:text-gallery-bg transition-colors duration-300">
+                    Contact
+                </a>
+            </div>
+            <!-- Mobile Menu Toggle Button -->
+            <button class="md:hidden text-gallery-ink p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Open Navigation Menu">
+                <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 行動裝置側邊導覽選單 (Mobile Drawer) -->
+    <div id="mobile-drawer" class="fixed inset-0 z-40 bg-gallery-bg/95 backdrop-blur-md flex flex-col justify-between p-8 transition-all duration-500 opacity-0 pointer-events-none md:hidden pt-28">
+        <div class="flex flex-col space-y-6 text-center font-serif text-2xl tracking-widest text-gallery-ink">
+            <a href="#about" class="mobile-link py-2 border-b border-gallery-border/50">ABOUT</a>
+            <a href="#skills" class="mobile-link py-2 border-b border-gallery-border/50">SKILLS</a>
+            <a href="#portfolio" class="mobile-link py-2 border-b border-gallery-border/50">EXHIBITION</a>
+            <a href="#strengths" class="mobile-link py-2 border-b border-gallery-border/50">ADVANTAGES</a>
+            <a href="#contact" class="mobile-link py-2 border-b border-gallery-border/50 text-gallery-accent">CONTACT</a>
+            
+            <a href="1.pdf" target="_blank" download="1.pdf" onclick="handlePdfClick(event)" class="mobile-link mt-4 flex items-center justify-center gap-3 py-3 px-6 bg-gallery-accent text-white text-base tracking-widest font-sans rounded-sm shadow-sm">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>下載 PDF 履歷檔案</span>
+            </a>
+        </div>
+        <div class="text-center text-xs tracking-widest text-gallery-gray border-t border-gallery-border pt-6 uppercase">
+            Portfolio Exhibition &copy; 2026 Yiting Su
+        </div>
+    </div>
+
+    <!-- Hero 首頁區塊 -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-16 border-b border-gallery-border">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full reveal">
+            <div class="flex items-center gap-3 text-xs tracking-[0.3em] text-gallery-gray mb-8 uppercase">
+                <span class="inline-block w-8 h-[1px] bg-gallery-gray"></span>
+                Portfolio Exhibition &copy; 2026
+            </div>
+            
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-medium text-gallery-ink leading-[1.15] mb-8">
+                蘇奕庭 <br />
+                <span class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-gallery-accent font-serif mt-4 block font-normal tracking-wide">
+                    AI 應用 ‧ 社群行銷 ‧ 專案管理
+                </span>
+            </h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-16 md:mt-20 border-t border-gallery-border pt-8 items-center">
+                <p class="md:col-span-7 text-base md:text-lg text-gallery-gray leading-relaxed font-light">
+                    風險管理與保險背景，結合 AI 自動化工具、嚴謹的專案控管思維與社群行銷策略，專注於從 0 到 1 推進數位專案落地與品牌創新。
+                </p>
+                <div class="md:col-span-5 flex flex-wrap gap-4 md:justify-end items-center">
+                    <a href="1.pdf" target="_blank" download="1.pdf" onclick="handlePdfClick(event)" class="group flex items-center gap-2.5 px-5 py-3 border border-gallery-accent text-gallery-accent hover:bg-gallery-accent hover:text-white text-xs tracking-widest uppercase transition-all duration-300 rounded-sm shadow-sm" title="PDF 履歷下載">
+                        <i class="fa-solid fa-file-pdf text-sm group-hover:scale-110 transition-transform"></i>
+                        <span>PDF 履歷下載</span>
+                    </a>
+                    <a href="#portfolio" class="group flex items-center gap-4 text-gallery-ink hover:text-gallery-accent transition-colors">
+                        <span class="text-xs tracking-widest uppercase font-medium">Explore Exhibition</span>
+                        <div class="w-12 h-12 rounded-full border border-gallery-ink group-hover:border-gallery-accent flex items-center justify-center transition-all duration-300 group-hover:translate-x-2">
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 關於我 About Me -->
+    <section id="about" class="py-24 md:py-32 border-b border-gallery-border relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                <!-- 左側標題 -->
+                <div class="lg:col-span-4 reveal">
+                    <h2 class="text-xs tracking-[0.3em] text-gallery-gray mb-3 uppercase">01 / About</h2>
+                    <h3 class="text-3xl md:text-4xl font-serif text-gallery-ink leading-tight mb-6">跨域整合<br>AI 與專案落地</h3>
+                    <div class="w-12 h-[2px] bg-gallery-accent mb-6"></div>
+                </div>
+                
+                <!-- 右側內容 -->
+                <div class="lg:col-span-8 reveal delay-100">
+                    <div class="prose prose-lg text-gallery-gray font-light leading-relaxed max-w-3xl mb-12 space-y-4">
+                        <p>
+                            我是逢甲大學風險管理與保險學系學生，專注於將金融風險邏輯與現代 AI 工具進行跨域整合。
+                        </p>
+                        <p class="text-gallery-ink font-medium text-base md:text-lg border-l-2 border-gallery-ink pl-5 py-3 my-6 bg-gallery-ink/5 rounded-r">
+                            具備風險管理邏輯，能以嚴謹思維進行專案範疇拆解、時程與品質控管，並評估 AI 導入的風險與效益。
+                        </p>
+                        <p>
+                            持續高強度投入 AI 工具實踐與專案開發，透過自學與實際專案運營，快速掌握 <span class="text-gallery-ink font-medium border-b border-gallery-ink/30 pb-0.5">AI 生成內容、社群策略矩陣、網站系統整合與數位專案管理</span>能力。
+                        </p>
+                        <blockquote class="border-l-2 border-gallery-accent pl-6 my-8 text-lg md:text-xl font-serif text-gallery-ink italic">
+                            「我相信 AI 是極致的生產力槓桿，結合嚴謹的專案管理與行銷洞察，能為企業帶來實質的商業價值。」
+                        </blockquote>
+                    </div>
+
+                    <!-- 基本資料 List -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 pt-8 border-t border-gallery-border/60">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-gallery-gray tracking-widest uppercase mb-1">Name</span>
+                            <span class="text-gallery-ink font-serif text-lg">蘇奕庭 (Yiting Su)</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-gallery-gray tracking-widest uppercase mb-1">Email</span>
+                            <button onclick="copyToClipboard('z0978078536@gmail.com')" class="text-gallery-ink font-serif text-lg hover-line self-start flex items-center gap-2 group" title="點擊複製 Email">
+                                <span>z0978078536@gmail.com</span>
+                                <i class="fa-regular fa-copy text-xs text-gallery-gray group-hover:text-gallery-ink"></i>
+                            </button>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-gallery-gray tracking-widest uppercase mb-1">Location</span>
+                            <span class="text-gallery-ink font-serif text-lg">台中市, 台灣</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-gallery-gray tracking-widest uppercase mb-1">Education</span>
+                            <span class="text-gallery-ink font-serif text-lg">逢甲大學 <span class="text-sm font-sans text-gallery-gray ml-1">風險管理與保險學系</span></span>
+                        </div>
+                        <div class="flex flex-col sm:col-span-2">
+                            <span class="text-xs text-gallery-gray tracking-widest uppercase mb-1">Licenses & Certifications</span>
+                            <span class="text-gallery-ink font-serif text-base leading-relaxed">人身保險業務員 ‧ 財產保險業務員 ‧ 金融市場常識與職業道德</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 專業技能 Skills -->
+    <section id="skills" class="py-24 md:py-32 border-b border-gallery-border">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-16 reveal">
+                <h2 class="text-xs tracking-[0.3em] text-gallery-gray mb-3 uppercase">02 / Skills</h2>
+                <h3 class="text-3xl md:text-4xl font-serif text-gallery-ink">專業技能與工具矩陣</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+                <!-- AI 應用與工具 -->
+                <div class="reveal border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
+                    <div>
+                        <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">01 / AI Engineering</span>
+                        <h4 class="text-xl font-serif text-gallery-ink mb-6 group-hover:text-gallery-accent transition-colors">AI 應用與生成式工具</h4>
+                        <ul class="space-y-3 text-sm text-gallery-gray font-light">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>Gemini / ChatGPT 提示詞工程</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>Gemini API & TTS 語音系統串接</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>Midjourney / AI 品牌視覺生成</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>AI 影音分鏡與短影音腳本生成</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 前端開發與系統 -->
+                <div class="reveal delay-100 border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
+                    <div>
+                        <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">02 / Development</span>
+                        <h4 class="text-xl font-serif text-gallery-ink mb-6 group-hover:text-gallery-accent transition-colors">前端開發與系統整合</h4>
+                        <ul class="space-y-3 text-sm text-gallery-gray font-light">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>HTML5 / CSS3 / Tailwind CSS</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>JavaScript (ES6+) 與 DOM 操作</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>Firebase 雲端資料庫 & 數據同步</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>Git / GitHub Pages 專案部署</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 數位行銷與品牌 -->
+                <div class="reveal delay-200 border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
+                    <div>
+                        <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">03 / Marketing</span>
+                        <h4 class="text-xl font-serif text-gallery-ink mb-6 group-hover:text-gallery-accent transition-colors">社群行銷與品牌企劃</h4>
+                        <ul class="space-y-3 text-sm text-gallery-gray font-light">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>品牌 VI 視覺規範與色彩包裝企劃</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>AI 多切角文案 A/B 測試與受眾定位</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>FB / IG 社群經營與互動抽獎機制</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>節慶主題行銷與商業導流策略</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 專案管理與風險控管 -->
+                <div class="reveal delay-300 border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
+                    <div>
+                        <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">04 / Management</span>
+                        <h4 class="text-xl font-serif text-gallery-ink mb-6 group-hover:text-gallery-accent transition-colors">專案管理與風險控管</h4>
+                        <ul class="space-y-3 text-sm text-gallery-gray font-light">
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>專案範疇拆解 (WBS) 與進度控管</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>跨單位溝通協調與外部資源串接</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>金融與專案風險預判與驗收防呆</li>
+                            <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-gallery-ink"></span>Notion / Trello 專案協作流程建立</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精選作品 Portfolio (展覽區) -->
+    <section id="portfolio" class="py-24 md:py-32 border-b border-gallery-border">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-12 reveal flex flex-col md:flex-row justify-between md:items-end border-b border-gallery-border pb-8 gap-6">
+                <div>
+                    <h2 class="text-xs tracking-[0.3em] text-gallery-gray mb-3 uppercase">03 / Works</h2>
+                    <h3 class="text-3xl md:text-4xl font-serif text-gallery-ink">精選作品展</h3>
+                </div>
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-2 text-xs uppercase tracking-widest" id="portfolio-filters">
+                    <button onclick="filterPortfolio('all')" class="filter-btn active px-4 py-2 border border-gallery-ink bg-gallery-ink text-gallery-bg transition-all">All</button>
+                    <button onclick="filterPortfolio('system')" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Systems</button>
+                    <button onclick="filterPortfolio('ai')" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">AI Tech</button>
+                    <button onclick="filterPortfolio('marketing')" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Marketing</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8">
+                
+                <!-- 作品一 -->
+                <article class="portfolio-item system group reveal flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
+                    <div onclick="openModal('modal-p1')" class="block relative aspect-[4/3] overflow-hidden bg-gray-200 mb-6 cursor-pointer">
+                        <img src="https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/my-clothes-shop/" 
+                             alt="織心精品服飾全功能店務系統預覽" 
+                             class="object-cover object-top w-full h-full transition-all duration-700 group-hover:scale-105"
+                             onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Web+System+Preview'">
+                        <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View PM Milestones</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col">
+                        <span class="text-[10px] tracking-widest uppercase text-gallery-accent font-serif mb-2">Full-Stack System / PM</span>
+                        <h4 class="text-2xl font-serif text-gallery-ink mb-3 group-hover:text-gallery-accent transition-colors">織心精品服飾 (全功能店務系統)</h4>
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">PM 需求拆解</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">全棧網站開發</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">Firebase 雲端同步</span>
+                        </div>
+                        <p class="text-gallery-gray text-sm leading-relaxed font-light mb-6 border-l-2 border-gallery-border pl-3">
+                            發揮 PM 需求拆解與開發控管能力，為解決服飾店營運痛點，從 0 到 1 打造跨裝置即時同步的完整店務管理系統。
+                        </p>
+                        <ul class="text-xs text-gallery-ink font-light space-y-2 mt-auto border-t border-gallery-border/40 pt-4">
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>需求定義：智慧排班、進銷存與 POS 收銀</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>系統整合：導入 Firebase 實現數據即時同步</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>品質控管：出勤打卡防呆與多權限安全機制</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 作品二 -->
+                <article class="portfolio-item ai group reveal delay-100 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
+                    <div onclick="openModal('modal-p2')" class="block relative aspect-[4/3] overflow-hidden bg-gray-200 mb-6 cursor-pointer">
+                        <img src="https://image.thum.io/get/width/800/crop/800/https://miyu9200.github.io/taiping-blue/" 
+                             alt="太平藍染 AI 國際導覽系統預覽" 
+                             class="object-cover object-top w-full h-full transition-all duration-700 group-hover:scale-105"
+                             onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=AI+Guide+System+Preview'">
+                        <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View PM Milestones</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col">
+                        <span class="text-[10px] tracking-widest uppercase text-gallery-accent font-serif mb-2">AI Agent / Multilingual</span>
+                        <h4 class="text-2xl font-serif text-gallery-ink mb-3 group-hover:text-gallery-accent transition-colors">太平藍染 AI 國際導覽系統</h4>
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">AI Agent 導入</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">Gemini TTS 語音</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">6國語言架構</span>
+                        </div>
+                        <p class="text-gallery-gray text-sm leading-relaxed font-light mb-6 border-l-2 border-gallery-border pl-3">
+                            擔任專題 PM 整合在地文化與國際化需求，導入 Gemini AI 導覽機器人與 TTS 真人語音，串接外部電商平台實現商業轉換。
+                        </p>
+                        <ul class="text-xs text-gallery-ink font-light space-y-2 mt-auto border-t border-gallery-border/40 pt-4">
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>AI 專案整合：Gemini 智能問答與 TTS 語音生成</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>國際化規格：6 國多語系與動態 JSON 展品管理</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>跨單位導流：成功串接 Pinkoi 電商與在地基金會</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 作品三 -->
+                <article class="portfolio-item marketing group reveal delay-200 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
+                    <div onclick="openModal('modal-p3')" class="block relative aspect-[4/3] overflow-hidden bg-gray-200 mb-6 cursor-pointer">
+                        <img src="https://image.thum.io/get/width/800/crop/800/https://www.facebook.com/profile.php?id=61592515326568" 
+                             alt="魚仔嬉浪品牌行銷專案預覽" 
+                             class="object-cover object-top w-full h-full transition-all duration-700 group-hover:scale-105"
+                             onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Social+Marketing+Preview'">
+                        <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View Strategy Details</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col">
+                        <span class="text-[10px] tracking-widest uppercase text-gallery-accent font-serif mb-2">Brand Strategy / Social AI</span>
+                        <h4 class="text-2xl font-serif text-gallery-ink mb-3 group-hover:text-gallery-accent transition-colors">魚仔嬉浪 (AI 品牌營運與社群實驗)</h4>
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">從 0 到 1 品牌 VI</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">AI 內容矩陣</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">A/B 測試切角</span>
+                        </div>
+                        <p class="text-gallery-gray text-sm leading-relaxed font-light mb-6 border-l-2 border-gallery-border pl-3">
+                            將屏東東港傳統漁獲轉型為精品海味品牌，進行從 0 到 1 的品牌 VI 制定、AI 社群文案 A/B 測試與節慶行銷企劃實驗。
+                        </p>
+                        <ul class="text-xs text-gallery-ink font-light space-y-2 mt-auto border-t border-gallery-border/40 pt-4">
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>品牌 VI 企劃：制定浪花白/靜謐綠/沙灘金視覺規範與名片</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>AI 切角實驗：設計「高蛋白套利」、「告別乾柴」等痛點文案</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>行銷活動提案：規劃父親節/中秋 5 分鐘無痛備餐禮盒</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 我的優勢 Advantages -->
+    <section id="strengths" class="py-24 md:py-32 border-b border-gallery-border bg-white/30">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-16 reveal">
+                <h2 class="text-xs tracking-[0.3em] text-gallery-gray mb-3 uppercase">04 / Advantages</h2>
+                <h3 class="text-3xl md:text-4xl font-serif text-gallery-ink">核心優勢與勝任特質</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 border-t border-gallery-border pt-12">
+                <div class="reveal flex items-start gap-6 group">
+                    <span class="text-3xl text-gallery-border group-hover:text-gallery-accent transition-colors font-serif font-medium">01</span>
+                    <div>
+                        <h4 class="font-serif text-xl text-gallery-ink mb-2">敏捷學習與技術轉化</h4>
+                        <p class="text-gallery-gray font-light text-sm leading-relaxed">具備極佳的技術敏感度，能迅速將新 AI 工具與跨領域知識轉化為具體的專案成果。</p>
+                    </div>
+                </div>
+
+                <div class="reveal delay-100 flex items-start gap-6 group">
+                    <span class="text-3xl text-gallery-border group-hover:text-gallery-accent transition-colors font-serif font-medium">02</span>
+                    <div>
+                        <h4 class="font-serif text-xl text-gallery-ink mb-2">專案範疇與風險控管</h4>
+                        <p class="text-gallery-gray font-light text-sm leading-relaxed">結合風保背景，善於拆解專案結構 (WBS)、預判可能風險，並控管開發交付時程。</p>
+                    </div>
+                </div>
+
+                <div class="reveal flex items-start gap-6 group">
+                    <span class="text-3xl text-gallery-border group-hover:text-gallery-accent transition-colors font-serif font-medium">03</span>
+                    <div>
+                        <h4 class="font-serif text-xl text-gallery-ink mb-2">AI 生成與行銷切角企劃</h4>
+                        <p class="text-gallery-gray font-light text-sm leading-relaxed">精通提示詞工程，能運用 AI 快速產出多維度社群文案、品牌 VI 與視覺影像。</p>
+                    </div>
+                </div>
+
+                <div class="reveal delay-100 flex items-start gap-6 group">
+                    <span class="text-3xl text-gallery-border group-hover:text-gallery-accent transition-colors font-serif font-medium">04</span>
+                    <div>
+                        <h4 class="font-serif text-xl text-gallery-ink mb-2">問題拆解與解決力</h4>
+                        <p class="text-gallery-gray font-light text-sm leading-relaxed">面對未知複雜需求時，能釐清核心痛點並快速規劃可行解決方案。</p>
+                    </div>
+                </div>
+
+                <div class="reveal flex items-start gap-6 group">
+                    <span class="text-3xl text-gallery-border group-hover:text-gallery-accent transition-colors font-serif font-medium">05</span>
+                    <div>
+                        <h4 class="font-serif text-xl text-gallery-ink mb-2">跨領域溝通與協調</h4>
+                        <p class="text-gallery-gray font-light text-sm leading-relaxed">擅長翻譯技術語言與商業需求，順暢推動團隊溝通與外部資源串接。</p>
+                    </div>
+                </div>
+
+                <div class="reveal delay-100 flex items-start gap-6 group">
+                    <span class="text-3xl text-gallery-border group-hover:text-gallery-accent transition-colors font-serif font-medium">06</span>
+                    <div>
+                        <h4 class="font-serif text-xl text-gallery-ink mb-2">高完備度與細節要求</h4>
+                        <p class="text-gallery-gray font-light text-sm leading-relaxed">著重使用者互動體驗與細節雕琢，確保專案從邏輯架構到介面呈現皆具高品質。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 求職方向 -->
+    <section class="py-24 md:py-32 border-b border-gallery-border bg-gallery-ink text-gallery-bg">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 text-center reveal">
+            <h2 class="text-xs tracking-[0.3em] text-gallery-border/80 mb-6 uppercase">Career Path</h2>
+            <h3 class="text-3xl md:text-5xl font-serif mb-4">目標發展職務</h3>
+            <p class="text-gallery-border/70 mb-12 font-light text-sm md:text-base max-w-xl mx-auto">
+                期待發揮 AI 整合、社群企劃與專案控管專長，協助企業推動數位轉型與品牌升級
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-3 md:gap-5 max-w-4xl mx-auto">
+                <span class="px-6 py-3 border border-gallery-border/20 bg-white/5 hover:border-gallery-bg hover:bg-white/10 transition-all font-light tracking-wide text-xs md:text-sm cursor-default rounded-sm">AI 社群行銷企劃</span>
+                <span class="px-6 py-3 border border-gallery-border/20 bg-white/5 hover:border-gallery-bg hover:bg-white/10 transition-all font-light tracking-wide text-xs md:text-sm cursor-default rounded-sm">AI 專案管理專員 (Digital / AI PM)</span>
+                <span class="px-6 py-3 border border-gallery-border/20 bg-white/5 hover:border-gallery-bg hover:bg-white/10 transition-all font-light tracking-wide text-xs md:text-sm cursor-default rounded-sm">社群行銷人才</span>
+                <span class="px-6 py-3 border border-gallery-border/20 bg-white/5 hover:border-gallery-bg hover:bg-white/10 transition-all font-light tracking-wide text-xs md:text-sm cursor-default rounded-sm">AI 商業應用專員</span>
+                <span class="px-6 py-3 border border-gallery-border/20 bg-white/5 hover:border-gallery-bg hover:bg-white/10 transition-all font-light tracking-wide text-xs md:text-sm cursor-default rounded-sm">國際品牌專案助理</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡我 Footer -->
+    <footer id="contact" class="py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 reveal">
+            <div class="max-w-md">
+                <h2 class="text-4xl md:text-5xl font-serif text-gallery-ink mb-6">Let's Connect</h2>
+                <p class="text-gallery-gray font-light leading-relaxed mb-8 text-sm md:text-base">
+                    感謝您的閱讀，期待有機會與您交流 AI 應用、社群行銷與專案落地的更多可能。
+                </p>
+                <div class="space-y-4">
+                    <div>
+                        <span class="text-xs tracking-widest uppercase text-gallery-gray block mb-1">Email</span>
+                        <button onclick="copyToClipboard('z0978078536@gmail.com')" class="text-lg md:text-xl font-serif text-gallery-ink hover-line flex items-center gap-2 group">
+                            <span>z0978078536@gmail.com</span>
+                            <i class="fa-regular fa-copy text-sm text-gallery-gray group-hover:text-gallery-ink transition-colors"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <span class="text-xs tracking-widest uppercase text-gallery-gray block mb-1">Location</span>
+                        <span class="text-lg md:text-xl font-serif text-gallery-ink">Taichung City, Taiwan</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-gallery-gray text-xs tracking-widest uppercase pb-1 border-b border-transparent">
+                &copy; 2026 YITING SU. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal 1: 織心精品服飾 -->
+    <div id="modal-p1" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
+        <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
+            <button onclick="closeModal('modal-p1')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-full md:w-5/12 bg-gray-100 relative h-64 md:h-auto border-b md:border-b-0 md:border-r border-gallery-border">
+                <img src="https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/my-clothes-shop/" class="w-full h-full object-cover object-top absolute inset-0" onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Preview+Unavailable'">
+            </div>
+            <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
+                <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">織心精品服飾</h3>
+                <p class="text-gallery-gray text-xs tracking-[0.2em] uppercase mb-6 border-b border-gallery-border pb-3">PM & Development Lifecycle</p>
+                
+                <div class="relative border-l border-gallery-border ml-3 space-y-5 flex-1">
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">01 / 專案需求分析與架構設計</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">深入服飾門市實務，進行權限分級需求拆解，規劃儀表板即時營運數據與庫存估值邏輯。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">02 / 智慧排班與成本試算模組</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">設計自動排班防撞機制，並建立每週人事薪資成本自動試算模型。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">03 / 進銷存與 POS 收銀系統</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">模擬真實門市收銀與掃碼流程，結合 CSV 報表匯出與歷史交易明細管理。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">04 / Firebase 雲端與防呆驗收</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">串接 Firebase 實現跨裝置資料即時同步，並加入打卡遲到早退自動判定與數據防呆機制。</p>
+                    </div>
+                </div>
+                
+                <a href="https://0420crystalyiting-art.github.io/my-clothes-shop/" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center border border-gallery-ink text-gallery-ink py-3 text-xs tracking-[0.2em] uppercase hover:bg-gallery-ink hover:text-white transition-colors duration-300">Visit Live System <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: 太平藍染導覽系統 -->
+    <div id="modal-p2" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
+        <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
+            <button onclick="closeModal('modal-p2')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-full md:w-5/12 bg-gray-100 relative h-64 md:h-auto border-b md:border-b-0 md:border-r border-gallery-border">
+                <img src="https://image.thum.io/get/width/800/crop/800/https://miyu9200.github.io/taiping-blue/" class="w-full h-full object-cover object-top absolute inset-0" onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Preview+Unavailable'">
+            </div>
+            <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
+                <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">太平藍染 AI 國際導覽系統</h3>
+                <p class="text-gallery-gray text-xs tracking-[0.2em] uppercase mb-6 border-b border-gallery-border pb-3">Project Milestones & Coordination</p>
+                
+                <div class="relative border-l border-gallery-border ml-3 space-y-6 flex-1">
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">01 / Gemini AI Agent 與 TTS 真人語音</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">專案導入 Gemini AI 導覽機器人，並串接 Gemini TTS API 生成高品質真人語音導覽，打造沉浸式體驗。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">02 / 6 國多語系與展品動態管理</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">建置中、英、日、法、韓、義 6 國語言架構，搭配 JSON 前端資料庫實現動態增刪修查功能。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">03 / 跨單位資源整合與商業導流</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">協調在地基金會資源，串接外部 Pinkoi 平台購買連結，完成文化展示到實質商業導流的閉環。</p>
+                    </div>
+                </div>
+                
+                <a href="https://miyu9200.github.io/taiping-blue/" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center border border-gallery-ink text-gallery-ink py-3 text-xs tracking-[0.2em] uppercase hover:bg-gallery-ink hover:text-white transition-colors duration-300">Visit Live Website <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: 魚仔嬉浪品牌行銷 -->
+    <div id="modal-p3" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
+        <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
+            <button onclick="closeModal('modal-p3')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-full md:w-5/12 bg-gray-100 relative h-64 md:h-auto border-b md:border-b-0 md:border-r border-gallery-border">
+                <img src="https://image.thum.io/get/width/800/crop/800/https://www.facebook.com/profile.php?id=61592515326568" class="w-full h-full object-cover object-top absolute inset-0" onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Preview+Unavailable'">
+            </div>
+            <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
+                <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">魚仔嬉浪 YUZAI WAVES</h3>
+                <p class="text-gallery-gray text-xs tracking-[0.2em] uppercase mb-6 border-b border-gallery-border pb-3">Brand Strategy & AI Campaign Experiment</p>
+                
+                <div class="relative border-l border-gallery-border ml-3 space-y-4 flex-1">
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">01 / 品牌核心定位與故事設計</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">立足屏東東港傳統漁業重鎮，提煉「來自東港的游刃有餘，治癒你的每一餐」核心標語，將傳統漁獲重塑為都會輕奢海味品牌。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">02 / 完整 VI 視覺規範與實體名片</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">建立「60% 浪花純淨白 + 30% 東港靜謐綠 + 10% 暖陽沙灘金」色彩比例，設計極簡浪花 Logo 與象牙卡雙面藝文名片。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">03 / AI 痛點切角與 A/B 測試文案矩陣</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">運用 AI 針對控體與健身族群設計多元切角（如「高蛋白熱量套利」、「冰炫風對衝術」、「告別乾柴雞胸肉」），進行社群貼文 A/B 測試企劃。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">04 / 節慶主題提案與短影音腳本</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">策劃「父親節微醺海味禮盒」與「中秋解凍即烤 5 分鐘提案」，並編寫「深夜小食堂」情境短影音分鏡腳本。</p>
+                    </div>
+                </div>
+                
+                <a href="https://www.facebook.com/profile.php?id=61592515326568" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center border border-gallery-ink text-gallery-ink py-3 text-xs tracking-[0.2em] uppercase hover:bg-gallery-ink hover:text-white transition-colors duration-300">Visit Facebook Page Prototype <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-[120] bg-gallery-ink text-gallery-bg px-6 py-3 shadow-xl flex items-center gap-3 text-xs tracking-wider uppercase rounded-sm border border-gallery-border">
+        <i class="fa-solid fa-check text-gallery-accent"></i>
+        <span id="toast-msg">Email copied to clipboard!</span>
+    </div>
+
+    <!-- 腳本 -->
+    <script>
+        
+        // Modal functions
+        function openModal(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Modal overlay clicks
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal(this.id);
+                }
+            });
+        });
+
+        // ESC Key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+
+        // Navbar scroll behavior
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 40) {
+                navbar.classList.add('border-gallery-border', 'py-3');
+                navbar.classList.remove('border-transparent', 'py-5');
+            } else {
+                navbar.classList.remove('border-gallery-border', 'py-3');
+                navbar.classList.add('border-transparent', 'py-5');
+            }
+        });
+
+        // Intersection Observer for Entrance Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Mobile Menu Drawer Control (No alert used)
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const menuIcon = document.getElementById('menu-icon');
+        let isDrawerOpen = false;
+
+        function toggleMobileMenu() {
+            isDrawerOpen = !isDrawerOpen;
+            if (isDrawerOpen) {
+                mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+                mobileDrawer.classList.add('opacity-100', 'pointer-events-auto');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+                mobileDrawer.classList.remove('opacity-100', 'pointer-events-auto');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (mobileBtn) {
+            mobileBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isDrawerOpen) toggleMobileMenu();
+            });
+        });
+
+        // Portfolio Filtering
+        function filterPortfolio(category) {
+            const items = document.querySelectorAll('.portfolio-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-gallery-ink', 'text-gallery-bg', 'border-gallery-ink');
+                btn.classList.add('border-gallery-border', 'text-gallery-gray');
+            });
+
+            event.currentTarget.classList.add('bg-gallery-ink', 'text-gallery-bg', 'border-gallery-ink');
+            event.currentTarget.classList.remove('border-gallery-border', 'text-gallery-gray');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                    setTimeout(() => item.style.opacity = '1', 50);
+                } else {
+                    item.style.opacity = '0';
+                    setTimeout(() => item.style.display = 'none', 300);
+                }
+            });
+        }
+
+        // Copy to clipboard helper
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => showToast('Email 複製成功：' + text));
+            } else {
+                // Fallback execCommand
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Email 複製成功：' + text);
+                } catch (err) {
+                    showToast('複製失敗，請手動複製：' + text);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            if (toast && toastMsg) {
+                toastMsg.innerText = msg;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // PDF 履歷連動與開啟處理
+        function handlePdfClick(e) {
+            showToast('正在為您開啟 / 下載履歷：1.pdf');
+        }
+
+        // 傳統列印備份
+        function exportToPDF() {
+            showToast('正在為您準備 PDF 列印 / 下載預覽...');
+            setTimeout(() => {
+                window.print();
+            }, 600);
+        }
+    </script>
+</body>
+</html>
