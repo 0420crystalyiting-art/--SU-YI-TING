@@ -32,7 +32,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
 
     <style>
@@ -160,7 +160,7 @@
                 <a href="#strengths" class="hover:text-gallery-ink hover-line transition-colors">ADVANTAGES</a>
             </div>
             <div class="hidden md:flex items-center gap-3">
-                <a href="1.pdf" target="_blank" download="1.pdf" onclick="handlePdfClick(event)" class="inline-flex items-center gap-2 px-4 py-2 text-xs tracking-widest uppercase border border-gallery-accent text-gallery-accent hover:bg-gallery-accent hover:text-white transition-all duration-300 rounded-sm" title="下載 / 檢視 PDF 履歷表">
+                <a href="https://docs.google.com/document/d/1STSqF0iTFalTtKlfqvLniX2_mWT95DdUNHXbYrB7lmc/edit?tab=t.0" target="_blank" rel="noopener noreferrer" onclick="handlePdfClick(event)" class="inline-flex items-center gap-2 px-4 py-2 text-xs tracking-widest uppercase border border-gallery-accent text-gallery-accent hover:bg-gallery-accent hover:text-white transition-all duration-300 rounded-sm" title="檢視 Google Docs 線上履歷">
                     <i class="fa-solid fa-file-pdf"></i>
                     <span>PDF 履歷</span>
                 </a>
@@ -184,9 +184,9 @@
             <a href="#strengths" class="mobile-link py-2 border-b border-gallery-border/50">ADVANTAGES</a>
             <a href="#contact" class="mobile-link py-2 border-b border-gallery-border/50 text-gallery-accent">CONTACT</a>
             
-            <a href="1.pdf" target="_blank" download="1.pdf" onclick="handlePdfClick(event)" class="mobile-link mt-4 flex items-center justify-center gap-3 py-3 px-6 bg-gallery-accent text-white text-base tracking-widest font-sans rounded-sm shadow-sm">
+            <a href="https://docs.google.com/document/d/1STSqF0iTFalTtKlfqvLniX2_mWT95DdUNHXbYrB7lmc/edit?tab=t.0" target="_blank" rel="noopener noreferrer" onclick="handlePdfClick(event)" class="mobile-link mt-4 flex items-center justify-center gap-3 py-3 px-6 bg-gallery-accent text-white text-base tracking-widest font-sans rounded-sm shadow-sm">
                 <i class="fa-solid fa-file-pdf"></i>
-                <span>下載 PDF 履歷檔案</span>
+                <span>檢視 PDF 履歷檔案</span>
             </a>
         </div>
         <div class="text-center text-xs tracking-widest text-gallery-gray border-t border-gallery-border pt-6 uppercase">
@@ -214,9 +214,9 @@
                     風險管理與保險背景，結合 AI 自動化工具、嚴謹的專案控管思維與社群行銷策略，專注於從 0 到 1 推進數位專案落地與品牌創新。
                 </p>
                 <div class="md:col-span-5 flex flex-wrap gap-4 md:justify-end items-center">
-                    <a href="1.pdf" target="_blank" download="1.pdf" onclick="handlePdfClick(event)" class="group flex items-center gap-2.5 px-5 py-3 border border-gallery-accent text-gallery-accent hover:bg-gallery-accent hover:text-white text-xs tracking-widest uppercase transition-all duration-300 rounded-sm shadow-sm" title="PDF 履歷下載">
+                    <a href="https://docs.google.com/document/d/1STSqF0iTFalTtKlfqvLniX2_mWT95DdUNHXbYrB7lmc/edit?tab=t.0" target="_blank" rel="noopener noreferrer" onclick="handlePdfClick(event)" class="group flex items-center gap-2.5 px-5 py-3 border border-gallery-accent text-gallery-accent hover:bg-gallery-accent hover:text-white text-xs tracking-widest uppercase transition-all duration-300 rounded-sm shadow-sm" title="PDF 履歷檢視">
                         <i class="fa-solid fa-file-pdf text-sm group-hover:scale-110 transition-transform"></i>
-                        <span>PDF 履歷下載</span>
+                        <span>PDF 履歷檢視</span>
                     </a>
                     <a href="#portfolio" class="group flex items-center gap-4 text-gallery-ink hover:text-gallery-accent transition-colors">
                         <span class="text-xs tracking-widest uppercase font-medium">Explore Exhibition</span>
@@ -366,10 +366,10 @@
                 </div>
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-2 text-xs uppercase tracking-widest" id="portfolio-filters">
-                    <button onclick="filterPortfolio('all')" class="filter-btn active px-4 py-2 border border-gallery-ink bg-gallery-ink text-gallery-bg transition-all">All</button>
-                    <button onclick="filterPortfolio('system')" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Systems</button>
-                    <button onclick="filterPortfolio('ai')" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">AI Tech</button>
-                    <button onclick="filterPortfolio('marketing')" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Marketing</button>
+                    <button onclick="filterPortfolio('all', event)" class="filter-btn active px-4 py-2 border border-gallery-ink bg-gallery-ink text-gallery-bg transition-all">All</button>
+                    <button onclick="filterPortfolio('system', event)" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Systems</button>
+                    <button onclick="filterPortfolio('ai', event)" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">AI Tech</button>
+                    <button onclick="filterPortfolio('marketing', event)" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Marketing</button>
                 </div>
             </div>
 
@@ -377,13 +377,27 @@
                 
                 <!-- 作品一 -->
                 <article class="portfolio-item system group reveal flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
-                    <div onclick="openModal('modal-p1')" class="block relative aspect-[4/3] overflow-hidden bg-gray-200 mb-6 cursor-pointer">
-                        <img src="https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/my-clothes-shop/" 
-                             alt="織心精品服飾全功能店務系統預覽" 
-                             class="object-cover object-top w-full h-full transition-all duration-700 group-hover:scale-105"
-                             onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Web+System+Preview'">
-                        <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View PM Milestones</span>
+                    <div onclick="openModal('modal-p1')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
+                        <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                            </div>
+                            <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center opacity-80">
+                                0420crystalyiting-art.github.io/my-clothes-shop/
+                            </div>
+                        </div>
+                        <!-- 首頁截圖 -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
+                            <img src="https://api.microlink.io/?url=https%3A%2F%2F0420crystalyiting-art.github.io%2Fmy-clothes-shop%2F&screenshot=true&embed=screenshot.url" 
+                                 alt="織心精品服飾全功能店務系統首頁截圖" 
+                                 class="object-cover object-top w-full h-full transition-all duration-700 group-hover/img:scale-105"
+                                 onerror="this.onerror=null; this.src='https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/my-clothes-shop/';">
+                            <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View PM Milestones</span>
+                            </div>
                         </div>
                     </div>
                     
@@ -408,13 +422,27 @@
 
                 <!-- 作品二 -->
                 <article class="portfolio-item ai group reveal delay-100 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
-                    <div onclick="openModal('modal-p2')" class="block relative aspect-[4/3] overflow-hidden bg-gray-200 mb-6 cursor-pointer">
-                        <img src="https://image.thum.io/get/width/800/crop/800/https://miyu9200.github.io/taiping-blue/" 
-                             alt="太平藍染 AI 國際導覽系統預覽" 
-                             class="object-cover object-top w-full h-full transition-all duration-700 group-hover:scale-105"
-                             onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=AI+Guide+System+Preview'">
-                        <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View PM Milestones</span>
+                    <div onclick="openModal('modal-p2')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
+                        <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                            </div>
+                            <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center opacity-80">
+                                miyu9200.github.io/taiping-blue/
+                            </div>
+                        </div>
+                        <!-- 首頁截圖 -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
+                            <img src="https://api.microlink.io/?url=https%3A%2F%2Fmiyu9200.github.io%2Ftaiping-blue%2F&screenshot=true&embed=screenshot.url" 
+                                 alt="太平藍染 AI 國際導覽系統首頁截圖" 
+                                 class="object-cover object-top w-full h-full transition-all duration-700 group-hover/img:scale-105"
+                                 onerror="this.onerror=null; this.src='https://image.thum.io/get/width/800/crop/800/https://miyu9200.github.io/taiping-blue/';">
+                            <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View PM Milestones</span>
+                            </div>
                         </div>
                     </div>
                     
@@ -437,15 +465,29 @@
                     </div>
                 </article>
 
-                <!-- 作品三 -->
+                <!-- 作品三：魚仔嬉浪 -->
                 <article class="portfolio-item marketing group reveal delay-200 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
-                    <div onclick="openModal('modal-p3')" class="block relative aspect-[4/3] overflow-hidden bg-gray-200 mb-6 cursor-pointer">
-                        <img src="https://image.thum.io/get/width/800/crop/800/https://www.facebook.com/profile.php?id=61592515326568" 
-                             alt="魚仔嬉浪品牌行銷專案預覽" 
-                             class="object-cover object-top w-full h-full transition-all duration-700 group-hover:scale-105"
-                             onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Social+Marketing+Preview'">
-                        <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View Strategy Details</span>
+                    <div onclick="openModal('modal-p3')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
+                        <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                            </div>
+                            <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center opacity-80">
+                                facebook.com/yuzaiwaves
+                            </div>
+                        </div>
+                        <!-- 附件電腦版 Facebook 專頁截圖 -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
+                            <img src="螢幕擷取畫面 2026-09-03 103746.png" 
+                                 alt="魚仔嬉浪 Facebook 品牌專頁截圖" 
+                                 class="object-contain w-full h-full transition-all duration-700 group-hover/img:scale-105"
+                                 onerror="this.onerror=null; this.src='https://api.microlink.io/?url=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61592515326568&screenshot=true&embed=screenshot.url';">
+                            <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View Strategy Details</span>
+                            </div>
                         </div>
                     </div>
                     
@@ -464,6 +506,51 @@
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>品牌 VI 企劃：制定浪花白/靜謐綠/沙灘金視覺規範與名片</li>
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>AI 切角實驗：設計「高蛋白套利」、「告別乾柴」等痛點文案</li>
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>行銷活動提案：規劃父親節/中秋 5 分鐘無痛備餐禮盒</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 作品四：個人色彩鑑定系統 -->
+                <article class="portfolio-item ai system group reveal delay-300 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
+                    <div onclick="openModal('modal-p4')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
+                        <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                            </div>
+                            <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center opacity-80">
+                                0420crystalyiting-art.github.io/color-analysis-/
+                            </div>
+                        </div>
+                        <!-- 首頁截圖 -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
+                            <img src="https://api.microlink.io/?url=https%3A%2F%2F0420crystalyiting-art.github.io%2Fcolor-analysis-%2F&screenshot=true&embed=screenshot.url" 
+                                 alt="個人色彩鑑定系統首頁截圖" 
+                                 class="object-cover object-top w-full h-full transition-all duration-700 group-hover/img:scale-105"
+                                 onerror="this.onerror=null; this.src='https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/color-analysis-/';">
+                            <div class="absolute inset-0 bg-gallery-ink/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="bg-white/95 text-gallery-ink px-5 py-2.5 text-xs tracking-widest uppercase font-medium shadow-md">View Strategy & Architecture</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col">
+                        <span class="text-[10px] tracking-widest uppercase text-gallery-accent font-serif mb-2">AI Visual / Web App</span>
+                        <h4 class="text-2xl font-serif text-gallery-ink mb-3 group-hover:text-gallery-accent transition-colors">個人色彩鑑定系統 (Personal Color Analysis)</h4>
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">AI 色彩分析</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">互動式檢測</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">個人形象企劃</span>
+                        </div>
+                        <p class="text-gallery-gray text-sm leading-relaxed font-light mb-6 border-l-2 border-gallery-border pl-3">
+                            運用色彩學原理與 AI 診斷邏輯，打造個人化四季色彩鑑定與穿搭建議系統，提昇使用者個人形象與視覺審美體驗。
+                        </p>
+                        <ul class="text-xs text-gallery-ink font-light space-y-2 mt-auto border-t border-gallery-border/40 pt-4">
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>色彩學邏輯：四季色彩（春夏秋冬）與冷暖膚色測驗</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>視覺化呈現：自動產出專屬色卡、穿搭與彩妝建議</li>
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>極簡 UI 體驗：流暢回應式介面與動態結果展現</li>
                         </ul>
                     </div>
                 </article>
@@ -586,8 +673,23 @@
             <button onclick="closeModal('modal-p1')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            <div class="w-full md:w-5/12 bg-gray-100 relative h-64 md:h-auto border-b md:border-b-0 md:border-r border-gallery-border">
-                <img src="https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/my-clothes-shop/" class="w-full h-full object-cover object-top absolute inset-0" onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Preview+Unavailable'">
+            <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
+                <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60 shrink-0">
+                    <div class="flex gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                    </div>
+                    <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center">
+                        my-clothes-shop
+                    </div>
+                </div>
+                <div class="relative flex-1 p-3 flex items-center justify-center bg-stone-100/60 overflow-hidden">
+                    <img src="https://api.microlink.io/?url=https%3A%2F%2F0420crystalyiting-art.github.io%2Fmy-clothes-shop%2F&screenshot=true&embed=screenshot.url" 
+                         alt="織心精品服飾首頁截圖"
+                         class="w-full h-full max-h-[65vh] object-contain object-top rounded shadow-sm transition-transform duration-500 hover:scale-[1.02]" 
+                         onerror="this.onerror=null; this.src='https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/my-clothes-shop/';">
+                </div>
             </div>
             <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
                 <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">織心精品服飾</h3>
@@ -627,8 +729,23 @@
             <button onclick="closeModal('modal-p2')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            <div class="w-full md:w-5/12 bg-gray-100 relative h-64 md:h-auto border-b md:border-b-0 md:border-r border-gallery-border">
-                <img src="https://image.thum.io/get/width/800/crop/800/https://miyu9200.github.io/taiping-blue/" class="w-full h-full object-cover object-top absolute inset-0" onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Preview+Unavailable'">
+            <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
+                <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60 shrink-0">
+                    <div class="flex gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                    </div>
+                    <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center">
+                        taiping-blue
+                    </div>
+                </div>
+                <div class="relative flex-1 p-3 flex items-center justify-center bg-stone-100/60 overflow-hidden">
+                    <img src="https://api.microlink.io/?url=https%3A%2F%2Fmiyu9200.github.io%2Ftaiping-blue%2F&screenshot=true&embed=screenshot.url" 
+                         alt="太平藍染 AI 國際導覽系統首頁截圖"
+                         class="w-full h-full max-h-[65vh] object-contain object-top rounded shadow-sm transition-transform duration-500 hover:scale-[1.02]" 
+                         onerror="this.onerror=null; this.src='https://image.thum.io/get/width/800/crop/800/https://miyu9200.github.io/taiping-blue/';">
+                </div>
             </div>
             <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
                 <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">太平藍染 AI 國際導覽系統</h3>
@@ -663,8 +780,23 @@
             <button onclick="closeModal('modal-p3')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            <div class="w-full md:w-5/12 bg-gray-100 relative h-64 md:h-auto border-b md:border-b-0 md:border-r border-gallery-border">
-                <img src="https://image.thum.io/get/width/800/crop/800/https://www.facebook.com/profile.php?id=61592515326568" class="w-full h-full object-cover object-top absolute inset-0" onerror="this.src='https://placehold.co/800x600/E3E0D8/7A7A7A?text=Preview+Unavailable'">
+            <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
+                <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60 shrink-0">
+                    <div class="flex gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                    </div>
+                    <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center">
+                        facebook.com/yuzaiwaves
+                    </div>
+                </div>
+                <div class="relative flex-1 p-3 flex items-center justify-center bg-stone-100/60 overflow-hidden">
+                    <img src="螢幕擷取畫面 2026-09-03 103746.png" 
+                         alt="魚仔嬉浪 Facebook 品牌專頁截圖"
+                         class="w-full h-full max-h-[65vh] object-contain rounded shadow-sm transition-transform duration-500 hover:scale-[1.02]" 
+                         onerror="this.onerror=null; this.src='https://api.microlink.io/?url=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61592515326568&screenshot=true&embed=screenshot.url';">
+                </div>
             </div>
             <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
                 <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">魚仔嬉浪 YUZAI WAVES</h3>
@@ -698,6 +830,62 @@
         </div>
     </div>
 
+    <!-- Modal 4: 個人色彩鑑定系統 -->
+    <div id="modal-p4" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
+        <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
+            <button onclick="closeModal('modal-p4')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
+                <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60 shrink-0">
+                    <div class="flex gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                    </div>
+                    <div class="flex-1 text-[10px] text-gallery-gray bg-white/80 rounded px-2 py-0.5 truncate font-mono text-center">
+                        color-analysis-
+                    </div>
+                </div>
+                <div class="relative flex-1 p-3 flex items-center justify-center bg-stone-100/60 overflow-hidden">
+                    <img src="https://api.microlink.io/?url=https%3A%2F%2F0420crystalyiting-art.github.io%2Fcolor-analysis-%2F&screenshot=true&embed=screenshot.url" 
+                         alt="個人色彩鑑定系統首頁截圖"
+                         class="w-full h-full max-h-[65vh] object-contain object-top rounded shadow-sm transition-transform duration-500 hover:scale-[1.02]" 
+                         onerror="this.onerror=null; this.src='https://image.thum.io/get/width/800/crop/800/https://0420crystalyiting-art.github.io/color-analysis-/';">
+                </div>
+            </div>
+            <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col bg-gallery-bg">
+                <h3 class="text-2xl md:text-3xl font-serif text-gallery-ink mb-1">個人色彩鑑定系統</h3>
+                <p class="text-gallery-gray text-xs tracking-[0.2em] uppercase mb-6 border-b border-gallery-border pb-3">Personal Color Analysis & Interactive UI</p>
+                
+                <div class="relative border-l border-gallery-border ml-3 space-y-4 flex-1">
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">01 / 色彩學測驗與診斷架構設計</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">結合四季個人色彩學（Spring/Summer/Autumn/Winter）與膚色基調冷暖判定，打造系統化診斷流程。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">02 / 展覽風格互動介面 (UI/UX)</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">設計高雅流暢的問答體驗與即時反饋機制，提升使用者測驗時的視覺享受與沉浸感。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">03 / 個人化色卡與形象穿搭建議</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">測驗完成後自動生成專屬色板、避坑色彩指引、適合之穿搭風格與彩妝對應建議。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">04 / 跨裝置回應式與 Git 部署</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">採用動態網頁架構並部署於 GitHub Pages，支援手機與電腦最佳比例瀏覽體驗。</p>
+                    </div>
+                </div>
+                
+                <a href="https://0420crystalyiting-art.github.io/color-analysis-/" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center border border-gallery-ink text-gallery-ink py-3 text-xs tracking-[0.2em] uppercase hover:bg-gallery-ink hover:text-white transition-colors duration-300">Visit Live Website <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+            </div>
+        </div>
+    </div>
+
     <!-- Interactive Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 z-[120] bg-gallery-ink text-gallery-bg px-6 py-3 shadow-xl flex items-center gap-3 text-xs tracking-wider uppercase rounded-sm border border-gallery-border">
         <i class="fa-solid fa-check text-gallery-accent"></i>
@@ -706,7 +894,6 @@
 
     <!-- 腳本 -->
     <script>
-        
         // Modal functions
         function openModal(id) {
             const el = document.getElementById(id);
@@ -715,6 +902,7 @@
                 document.body.style.overflow = 'hidden';
             }
         }
+
         function closeModal(id) {
             const el = document.getElementById(id);
             if (el) {
@@ -773,7 +961,7 @@
             observer.observe(el);
         });
 
-        // Mobile Menu Drawer Control (No alert used)
+        // Mobile Menu Drawer Control
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileDrawer = document.getElementById('mobile-drawer');
         const menuIcon = document.getElementById('menu-icon');
@@ -807,7 +995,7 @@
         });
 
         // Portfolio Filtering
-        function filterPortfolio(category) {
+        function filterPortfolio(category, e) {
             const items = document.querySelectorAll('.portfolio-item');
             const buttons = document.querySelectorAll('.filter-btn');
 
@@ -816,8 +1004,11 @@
                 btn.classList.add('border-gallery-border', 'text-gallery-gray');
             });
 
-            event.currentTarget.classList.add('bg-gallery-ink', 'text-gallery-bg', 'border-gallery-ink');
-            event.currentTarget.classList.remove('border-gallery-border', 'text-gallery-gray');
+            const targetBtn = e ? (e.currentTarget || e.target) : (window.event ? window.event.currentTarget : null);
+            if (targetBtn) {
+                targetBtn.classList.add('bg-gallery-ink', 'text-gallery-bg', 'border-gallery-ink');
+                targetBtn.classList.remove('border-gallery-border', 'text-gallery-gray');
+            }
 
             items.forEach(item => {
                 if (category === 'all' || item.classList.contains(category)) {
@@ -835,7 +1026,6 @@
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => showToast('Email 複製成功：' + text));
             } else {
-                // Fallback execCommand
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 document.body.appendChild(textArea);
@@ -864,7 +1054,7 @@
 
         // PDF 履歷連動與開啟處理
         function handlePdfClick(e) {
-            showToast('正在為您開啟 / 下載履歷：1.pdf');
+            showToast('正在為您開啟 Google Docs 線上履歷...');
         }
 
         // 傳統列印備份
