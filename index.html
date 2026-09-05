@@ -23,11 +23,11 @@
                     },
                     colors: {
                         gallery: {
-                            bg: '#F5F4F0',
-                            ink: '#2A2927',
-                            gray: '#7A7A7A',
-                            border: '#E3E0D8',
-                            accent: '#8C7A6B'
+                            bg: '#F5F4F0',      // 溫潤米白背景
+                            ink: '#2A2927',     // 深墨色文字
+                            gray: '#7A7A7A',    // 輔助灰色
+                            border: '#E3E0D8',  // 細緻邊線色
+                            accent: '#8C7A6B'   // 典雅大地色點綴
                         }
                     }
                 }
@@ -43,6 +43,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
         }
 
+        /* 展覽式進場動畫 */
         .reveal {
             opacity: 0;
             transform: translateY(24px);
@@ -58,6 +59,7 @@
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
+        /* 細緻底線 Hover 動畫 */
         .hover-line {
             position: relative;
         }
@@ -78,6 +80,7 @@
             transform-origin: bottom left;
         }
         
+        /* 彈出視窗 (Modal) 樣式 */
         .modal-overlay {
             opacity: 0;
             visibility: hidden;
@@ -95,6 +98,7 @@
             transform: translateY(0) scale(1);
         }
 
+        /* 隱藏滾動條但保持滾動 */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -103,6 +107,7 @@
             scrollbar-width: none;
         }
 
+        /* Toast Notice */
         #toast {
             transform: translateY(100%);
             opacity: 0;
@@ -113,6 +118,7 @@
             opacity: 1;
         }
 
+        /* 列印與 PDF 匯出優化樣式 */
         @media print {
             nav, #mobile-drawer, #toast, #portfolio-filters, .modal-overlay, button, .no-print {
                 display: none !important;
@@ -140,7 +146,7 @@
 </head>
 <body class="antialiased selection:bg-gallery-ink selection:text-gallery-bg font-sans">
 
-    <!-- 導覽列 -->
+    <!-- 導覽列 (美術館極簡風) -->
     <nav class="fixed w-full z-50 transition-all duration-500 bg-gallery-bg/90 backdrop-blur-md border-b border-transparent" id="navbar">
         <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex justify-between items-center">
             <a href="#" class="text-xl font-serif font-bold tracking-widest text-gallery-ink flex items-center gap-2">
@@ -162,13 +168,14 @@
                     Contact
                 </a>
             </div>
+            <!-- Mobile Menu Toggle Button -->
             <button class="md:hidden text-gallery-ink p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Open Navigation Menu">
                 <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
             </button>
         </div>
     </nav>
 
-    <!-- 行動裝置選單 -->
+    <!-- 行動裝置側邊導覽選單 (Mobile Drawer) -->
     <div id="mobile-drawer" class="fixed inset-0 z-40 bg-gallery-bg/95 backdrop-blur-md flex flex-col justify-between p-8 transition-all duration-500 opacity-0 pointer-events-none md:hidden pt-28">
         <div class="flex flex-col space-y-6 text-center font-serif text-2xl tracking-widest text-gallery-ink">
             <a href="#about" class="mobile-link py-2 border-b border-gallery-border/50">ABOUT</a>
@@ -187,7 +194,7 @@
         </div>
     </div>
 
-    <!-- Hero 區塊 -->
+    <!-- Hero 首頁區塊 -->
     <section class="relative min-h-screen flex items-center pt-24 pb-16 border-b border-gallery-border">
         <div class="max-w-7xl mx-auto px-6 md:px-12 w-full reveal">
             <div class="flex items-center gap-3 text-xs tracking-[0.3em] text-gallery-gray mb-8 uppercase">
@@ -226,20 +233,31 @@
     <section id="about" class="py-24 md:py-32 border-b border-gallery-border relative">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                <!-- 左側標題 -->
                 <div class="lg:col-span-4 reveal">
                     <h2 class="text-xs tracking-[0.3em] text-gallery-gray mb-3 uppercase">01 / About</h2>
                     <h3 class="text-3xl md:text-4xl font-serif text-gallery-ink leading-tight mb-6">跨域整合<br>AI 與專案落地</h3>
                     <div class="w-12 h-[2px] bg-gallery-accent mb-6"></div>
                 </div>
                 
+                <!-- 右側內容 -->
                 <div class="lg:col-span-8 reveal delay-100">
                     <div class="prose prose-lg text-gallery-gray font-light leading-relaxed max-w-3xl mb-12 space-y-4">
-                        <p>我是逢甲大學風險管理與保險學系學生，專注於將金融風險邏輯與現代 AI 工具進行跨域整合。</p>
-                        <p class="text-gallery-ink font-medium text-base md:text-lg border-l-2 border-gallery-ink pl-5 py-3 my-6 bg-gallery-ink/5 rounded-r">具備風險管理邏輯，能以嚴謹思維進行專案範疇拆解、時程與品質控管，並評估 AI 導入的風險與效益。</p>
-                        <p>持續高強度投入 AI 工具實踐與專案開發，透過自學與實際專案運營，快速掌握 <span class="text-gallery-ink font-medium border-b border-gallery-ink/30 pb-0.5">AI 生成內容、社群策略矩陣、網站系統整合與數位專案管理</span>能力。</p>
-                        <blockquote class="border-l-2 border-gallery-accent pl-6 my-8 text-lg md:text-xl font-serif text-gallery-ink italic">「我相信 AI 是極致的生產力槓桿，結合嚴謹的專案管理與行銷洞察，能為企業帶來實質的商業價值。」</blockquote>
+                        <p>
+                            我是逢甲大學風險管理與保險學系學生，專注於將金融風險邏輯與現代 AI 工具進行跨域整合。
+                        </p>
+                        <p class="text-gallery-ink font-medium text-base md:text-lg border-l-2 border-gallery-ink pl-5 py-3 my-6 bg-gallery-ink/5 rounded-r">
+                            具備風險管理邏輯，能以嚴謹思維進行專案範疇拆解、時程與品質控管，並評估 AI 導入的風險與效益。
+                        </p>
+                        <p>
+                            持續高強度投入 AI 工具實踐與專案開發，透過自學與實際專案運營，快速掌握 <span class="text-gallery-ink font-medium border-b border-gallery-ink/30 pb-0.5">AI 生成內容、社群策略矩陣、網站系統整合與數位專案管理</span>能力。
+                        </p>
+                        <blockquote class="border-l-2 border-gallery-accent pl-6 my-8 text-lg md:text-xl font-serif text-gallery-ink italic">
+                            「我相信 AI 是極致的生產力槓桿，結合嚴謹的專案管理與行銷洞察，能為企業帶來實質的商業價值。」
+                        </blockquote>
                     </div>
 
+                    <!-- 基本資料 List -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 pt-8 border-t border-gallery-border/60">
                         <div class="flex flex-col">
                             <span class="text-xs text-gallery-gray tracking-widest uppercase mb-1">Name</span>
@@ -279,6 +297,7 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+                <!-- AI 應用與工具 -->
                 <div class="reveal border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
                     <div>
                         <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">01 / AI Engineering</span>
@@ -292,6 +311,7 @@
                     </div>
                 </div>
 
+                <!-- 前端開發與系統 -->
                 <div class="reveal delay-100 border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
                     <div>
                         <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">02 / Development</span>
@@ -305,6 +325,7 @@
                     </div>
                 </div>
 
+                <!-- 數位行銷與品牌 -->
                 <div class="reveal delay-200 border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
                     <div>
                         <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">03 / Marketing</span>
@@ -318,6 +339,7 @@
                     </div>
                 </div>
 
+                <!-- 專案管理與風險控管 -->
                 <div class="reveal delay-300 border-t border-gallery-border pt-8 flex flex-col justify-between group hover:border-gallery-ink transition-colors duration-300">
                     <div>
                         <span class="text-xs text-gallery-accent tracking-widest uppercase font-serif block mb-3">04 / Management</span>
@@ -334,7 +356,7 @@
         </div>
     </section>
 
-    <!-- 精選作品 Portfolio -->
+    <!-- 精選作品 Portfolio (展覽區) -->
     <section id="portfolio" class="py-24 md:py-32 border-b border-gallery-border">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="mb-12 reveal flex flex-col md:flex-row justify-between md:items-end border-b border-gallery-border pb-8 gap-6">
@@ -342,6 +364,7 @@
                     <h2 class="text-xs tracking-[0.3em] text-gallery-gray mb-3 uppercase">03 / Works</h2>
                     <h3 class="text-3xl md:text-4xl font-serif text-gallery-ink">精選作品展</h3>
                 </div>
+                <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-2 text-xs uppercase tracking-widest" id="portfolio-filters">
                     <button onclick="filterPortfolio('all', event)" class="filter-btn active px-4 py-2 border border-gallery-ink bg-gallery-ink text-gallery-bg transition-all">All</button>
                     <button onclick="filterPortfolio('system', event)" class="filter-btn px-4 py-2 border border-gallery-border text-gallery-gray hover:border-gallery-ink hover:text-gallery-ink transition-all">Systems</button>
@@ -351,9 +374,11 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8">
+                
                 <!-- 作品一 -->
                 <article class="portfolio-item system group reveal flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
                     <div onclick="openModal('modal-p1')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
                         <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
                             <div class="flex gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
@@ -364,6 +389,7 @@
                                 0420crystalyiting-art.github.io/my-clothes-shop/
                             </div>
                         </div>
+                        <!-- 首頁截圖 -->
                         <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
                             <img src="https://api.microlink.io/?url=https%3A%2F%2F0420crystalyiting-art.github.io%2Fmy-clothes-shop%2F&screenshot=true&embed=screenshot.url" 
                                  alt="織心精品服飾全功能店務系統首頁截圖" 
@@ -386,6 +412,11 @@
                         <p class="text-gallery-gray text-sm leading-relaxed font-light mb-6 border-l-2 border-gallery-border pl-3">
                             發揮 PM 需求拆解與開發控管能力，為解決服飾店營運痛點，從 0 到 1 打造跨裝置即時同步的完整店務管理系統。
                         </p>
+                        <!-- 系統測試登入提示 -->
+                        <div class="mb-4 bg-gallery-accent/10 border border-gallery-accent/30 p-2.5 rounded-sm text-xs text-gallery-ink flex items-center gap-2">
+                            <i class="fa-solid fa-key text-gallery-accent"></i>
+                            <span>體驗測試：點選系統管理員，密碼 <strong class="font-semibold text-gallery-ink">8888</strong></span>
+                        </div>
                         <ul class="text-xs text-gallery-ink font-light space-y-2 mt-auto border-t border-gallery-border/40 pt-4">
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>需求定義：智慧排班、進銷存與 POS 收銀</li>
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>系統整合：導入 Firebase 實現數據即時同步</li>
@@ -397,6 +428,7 @@
                 <!-- 作品二 -->
                 <article class="portfolio-item ai group reveal delay-100 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
                     <div onclick="openModal('modal-p2')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
                         <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
                             <div class="flex gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
@@ -407,6 +439,7 @@
                                 miyu9200.github.io/taiping-blue/
                             </div>
                         </div>
+                        <!-- 首頁截圖 -->
                         <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
                             <img src="https://api.microlink.io/?url=https%3A%2F%2Fmiyu9200.github.io%2Ftaiping-blue%2F&screenshot=true&embed=screenshot.url" 
                                  alt="太平藍染 AI 國際導覽系統首頁截圖" 
@@ -437,9 +470,10 @@
                     </div>
                 </article>
 
-                <!-- 作品三 -->
+                <!-- 作品三：魚仔嬉浪 -->
                 <article class="portfolio-item marketing group reveal delay-200 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
                     <div onclick="openModal('modal-p3')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
                         <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
                             <div class="flex gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
@@ -450,6 +484,7 @@
                                 facebook.com/yuzaiwaves
                             </div>
                         </div>
+                        <!-- 附件電腦版 Facebook 專頁截圖 -->
                         <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
                             <img src="螢幕擷取畫面 2026-09-03 103746.png" 
                                  alt="魚仔嬉浪 Facebook 品牌專頁截圖" 
@@ -467,22 +502,23 @@
                         <div class="flex flex-wrap gap-1.5 mb-5">
                             <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">從 0 到 1 品牌 VI</span>
                             <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">AI 內容矩陣</span>
-                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">A/B 測試切角</span>
+                            <span class="text-[10px] tracking-wider uppercase text-gallery-gray border border-gallery-border px-2 py-0.5 rounded-sm">週觸及近 1,000 人</span>
                         </div>
                         <p class="text-gallery-gray text-sm leading-relaxed font-light mb-6 border-l-2 border-gallery-border pl-3">
                             將屏東東港傳統漁獲轉型為精品海味品牌，進行從 0 到 1 的品牌 VI 制定、AI 社群文案 A/B 測試與節慶行銷企劃實驗。
                         </p>
                         <ul class="text-xs text-gallery-ink font-light space-y-2 mt-auto border-t border-gallery-border/40 pt-4">
+                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>社群流量成效：創立一週內社群觸及率近 1,000 人次</li>
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>品牌 VI 企劃：制定浪花白/靜謐綠/沙灘金視覺規範與名片</li>
                             <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>AI 切角實驗：設計「高蛋白套利」、「告別乾柴」等痛點文案</li>
-                            <li class="flex items-start"><span class="text-gallery-accent mr-2 font-bold">+</span>行銷活動提案：規劃父親節/中秋 5 分鐘無痛備餐禮盒</li>
                         </ul>
                     </div>
                 </article>
 
-                <!-- 作品四 -->
+                <!-- 作品四：個人色彩鑑定系統 -->
                 <article class="portfolio-item ai system group reveal delay-300 flex flex-col border border-gallery-border/60 bg-white/40 p-5 rounded-sm hover:border-gallery-accent transition-all duration-300">
                     <div onclick="openModal('modal-p4')" class="block relative overflow-hidden rounded border border-gallery-border/80 bg-stone-100 mb-6 cursor-pointer group/img shadow-sm">
+                        <!-- 模擬瀏覽器視窗頂列 -->
                         <div class="bg-stone-200/90 px-3 py-2 flex items-center gap-2 border-b border-gallery-border/60">
                             <div class="flex gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
@@ -493,6 +529,7 @@
                                 0420crystalyiting-art.github.io/color-analysis-/
                             </div>
                         </div>
+                        <!-- 首頁截圖 -->
                         <div class="relative aspect-[4/3] overflow-hidden bg-stone-100 flex items-center justify-center">
                             <img src="https://api.microlink.io/?url=https%3A%2F%2F0420crystalyiting-art.github.io%2Fcolor-analysis-%2F&screenshot=true&embed=screenshot.url" 
                                  alt="個人色彩鑑定系統首頁截圖" 
@@ -522,11 +559,12 @@
                         </ul>
                     </div>
                 </article>
+
             </div>
         </div>
     </section>
 
-    <!-- 核心優勢 Advantages -->
+    <!-- 我的優勢 Advantages -->
     <section id="strengths" class="py-24 md:py-32 border-b border-gallery-border bg-white/30">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="mb-16 reveal">
@@ -634,11 +672,10 @@
         </div>
     </footer>
 
-    <!-- Modals -->
-    <!-- Modal 1 -->
+    <!-- Modal 1: 織心精品服飾 -->
     <div id="modal-p1" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
         <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
-            <button onclick="closeModal('modal-p1')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none">
+            <button onclick="closeModal('modal-p1')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
@@ -686,15 +723,20 @@
                     </div>
                 </div>
                 
-                <a href="https://0420crystalyiting-art.github.io/my-clothes-shop/" target="_blank" rel="noopener noreferrer" class="mt-6 block text-center border border-gallery-ink text-gallery-ink py-3 text-xs tracking-[0.2em] uppercase hover:bg-gallery-ink hover:text-white transition-colors duration-300">Visit Live System <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+                <div class="mt-6 space-y-2">
+                    <p class="text-xs text-gallery-accent font-medium text-center flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-key"></i> 體驗測試：點選系統管理員，密碼 <strong>8888</strong>
+                    </p>
+                    <a href="https://0420crystalyiting-art.github.io/my-clothes-shop/" target="_blank" rel="noopener noreferrer" class="block text-center border border-gallery-ink text-gallery-ink py-3 text-xs tracking-[0.2em] uppercase hover:bg-gallery-ink hover:text-white transition-colors duration-300">Visit Live System <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal 2 -->
+    <!-- Modal 2: 太平藍染導覽系統 -->
     <div id="modal-p2" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
         <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
-            <button onclick="closeModal('modal-p2')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none">
+            <button onclick="closeModal('modal-p2')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
@@ -742,10 +784,10 @@
         </div>
     </div>
 
-    <!-- Modal 3 -->
+    <!-- Modal 3: 魚仔嬉浪品牌行銷 -->
     <div id="modal-p3" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
         <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
-            <button onclick="closeModal('modal-p3')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none">
+            <button onclick="closeModal('modal-p3')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
@@ -788,7 +830,12 @@
                     </div>
                     <div class="relative pl-6">
                         <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
-                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">04 / 節慶主題提案與短影音腳本</h4>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">04 / 流量曝光與社群觸及成效</h4>
+                        <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">透過精準受眾切角與內容排版，專頁上線短短一週內即吸引近 1,000 人次社群觸及，展現高社群擴散潛力與互動表現。</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[5px] top-1.5 w-2 h-2 bg-gallery-ink rounded-full"></div>
+                        <h4 class="font-serif text-gallery-ink text-base font-medium mb-1">05 / 節慶主題提案與短影音腳本</h4>
                         <p class="text-gallery-gray text-xs md:text-sm font-light leading-relaxed">策劃「父親節微醺海味禮盒」與「中秋解凍即烤 5 分鐘提案」，並編寫「深夜小食堂」情境短影音分鏡腳本。</p>
                     </div>
                 </div>
@@ -798,10 +845,10 @@
         </div>
     </div>
 
-    <!-- Modal 4 -->
+    <!-- Modal 4: 個人色彩鑑定系統 -->
     <div id="modal-p4" class="modal-overlay fixed inset-0 z-[100] bg-gallery-bg/95 backdrop-blur-sm flex justify-center items-center p-4 sm:p-6 overflow-y-auto no-scrollbar">
         <div class="modal-content bg-white w-full max-w-4xl border border-gallery-border shadow-2xl relative my-auto overflow-hidden flex flex-col md:flex-row min-h-[60vh]">
-            <button onclick="closeModal('modal-p4')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none">
+            <button onclick="closeModal('modal-p4')" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-gallery-gray hover:text-gallery-ink bg-white/90 rounded-full transition-colors border border-gallery-border focus:outline-none" aria-label="Close modal">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="w-full md:w-5/12 bg-stone-100 relative min-h-[280px] md:min-h-[420px] border-b md:border-b-0 md:border-r border-gallery-border flex flex-col">
@@ -854,7 +901,7 @@
         </div>
     </div>
 
-    <!-- Toast Notice -->
+    <!-- Interactive Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 z-[120] bg-gallery-ink text-gallery-bg px-6 py-3 shadow-xl flex items-center gap-3 text-xs tracking-wider uppercase rounded-sm border border-gallery-border">
         <i class="fa-solid fa-check text-gallery-accent"></i>
         <span id="toast-msg">Email copied to clipboard!</span>
@@ -862,6 +909,7 @@
 
     <!-- 腳本 -->
     <script>
+        // Modal functions
         function openModal(id) {
             const el = document.getElementById(id);
             if (el) {
@@ -878,6 +926,7 @@
             }
         }
         
+        // Modal overlay clicks
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -886,6 +935,7 @@
             });
         });
 
+        // ESC Key to close modal
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-overlay.active').forEach(modal => {
@@ -894,6 +944,7 @@
             }
         });
 
+        // Navbar scroll behavior
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 40) {
@@ -905,6 +956,7 @@
             }
         });
 
+        // Intersection Observer for Entrance Animation
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -924,6 +976,7 @@
             observer.observe(el);
         });
 
+        // Mobile Menu Drawer Control
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileDrawer = document.getElementById('mobile-drawer');
         const menuIcon = document.getElementById('menu-icon');
@@ -956,6 +1009,7 @@
             });
         });
 
+        // Portfolio Filtering
         function filterPortfolio(category, e) {
             const items = document.querySelectorAll('.portfolio-item');
             const buttons = document.querySelectorAll('.filter-btn');
@@ -982,6 +1036,7 @@
             });
         }
 
+        // Copy to clipboard helper
         function copyToClipboard(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => showToast('Email 複製成功：' + text));
@@ -1012,8 +1067,17 @@
             }
         }
 
+        // PDF 履歷連動與開啟處理
         function handlePdfClick(e) {
-            showToast('正在開啟 PDF 履歷檔案...');
+            showToast('正在開啟 PDF 履歷檔案 (resume.pdf)...');
+        }
+
+        // 傳統列印備份
+        function exportToPDF() {
+            showToast('正在為您準備 PDF 列印 / 下載預覽...');
+            setTimeout(() => {
+                window.print();
+            }, 600);
         }
     </script>
 </body>
